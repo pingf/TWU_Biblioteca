@@ -44,16 +44,16 @@ test {
 sourceSets {
     main {
         java {
-            srcDirs = ["src/com/twu/biblioteca"]
+            srcDir 'src/java'
         }
     }
+
     test {
         java {
-            srcDirs = ["test/com/twu/biblioteca"]
+            srcDir 'test/java'
         }
     }
 }
-
 
 
 

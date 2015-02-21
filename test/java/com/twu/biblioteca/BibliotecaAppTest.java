@@ -1,6 +1,8 @@
 /**
  * Created by fcmeng on 2/21/15.
  */
+package com.twu.biblioteca;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,4 +35,5 @@ public class BibliotecaAppTest {
         BibliotecaApp.main(null);
         assertThat(outContent.toString(),containsString("Hello"));
     }
+
 }
