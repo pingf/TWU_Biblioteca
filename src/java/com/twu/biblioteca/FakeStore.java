@@ -2,26 +2,26 @@ package com.twu.biblioteca;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by fcmeng on 2/21/15.
  */
 public class FakeStore {
-    private List<String> fake_books = new ArrayList<String>();
+    private List<Book> fake_books_list = new ArrayList<Book>();
 
+    Book[] fake_books={
+            new Book("Learning Python, 4th Edition","Mark Lutz","January 1, 2009"),
+            new Book("Python for Unix and Linux System Administration","Noah Gift, Jeremy M. Jones","January 1, 2008")
+    };
     public FakeStore() {
-        String[] fake_book_titles={
-                "Learning Python, 4th Edition",
-                "Python for Unix and Linux System Administration",
-                "Python Pocket Reference, 4th Edition"
-        };
-        for(String book:fake_book_titles){
-            fake_books.add(book);
+        for(Book book:fake_books){
+            fake_books_list.add(book);
         }
-
     }
 
-    public List<String> listBooks() {
-        return fake_books;
+    public List<String[]> listBooks() {
+        List<String[]> books_info = fake_books_list.stream().map(Book::getInfo).collect(Collectors.toList());
+        return books_info;
     }
 }
