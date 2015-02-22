@@ -6,10 +6,6 @@ package com.twu.biblioteca;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 public class FakeStoreTest {
@@ -27,4 +23,18 @@ public class FakeStoreTest {
                         "Tue Jan 01 00:00:00 CST 2008"}};
         assertArrayEquals(expected_array, fakeStore.listBooks().toArray());
     }
+
+    @Test
+    public void whenCheckoutItShouldReturnSuccessfulIfBookExisted() {
+        FakeStore fakeStore = new FakeStore();
+
+        fakeStore.checkout_book("Python for Unix and Linux System Administration");
+        String[][] expected_array = {
+                {"Learning Python, 4th Edition",
+                        "Mark Lutz",
+                        "Thu Jan 01 00:00:00 CST 2009"}};
+        assertArrayEquals(expected_array, fakeStore.listBooks().toArray());
+    }
+
+
 }

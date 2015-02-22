@@ -22,7 +22,6 @@ public class BibliotecaApp {
                         () -> listBooks()
                 };
                 for (int i = 0; i < 1; i++) map.put(i, actions[i]);
-
             } while (!isOptionValid(map, option));
 
             if(isExitOption(option)) {
