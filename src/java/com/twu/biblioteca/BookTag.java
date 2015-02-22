@@ -29,7 +29,7 @@ public class BookTag {
         this.count = count;
     }
 
-    public boolean checkout_book(){
+    public boolean checkoutBook(){
         if(this.count>0) {
             this.count--;
             return true;
@@ -37,8 +37,7 @@ public class BookTag {
         return false;
     }
 
-
-    public void return_book(){
+    public void returnBook(){
         this.count++;
     }
 
@@ -50,6 +49,6 @@ public class BookTag {
         return this.count;
     }
     public String[] getInfo(){
-        return new String[]{getName(), this.author, this.date.toString()};
+        return new String[]{getName(), this.author, this.date.toString(), this.count.toString()};
     }
 }

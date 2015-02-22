@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,8 +9,8 @@ import java.util.List;
 public class FakeStore {
     private List<BookTag> book_tags = new ArrayList<BookTag>();
     BookTag[] fake_tags ={
-            new BookTag("Learning Python, 4th Edition","Mark Lutz","January 1, 2009",1),
-            new BookTag("Python for Unix and Linux System Administration","Noah Gift, Jeremy M. Jones","January 1, 2008",1)
+            new BookTag("Learning Python, 4th Edition","Mark Lutz","January 1, 2009",3),
+            new BookTag("Python for Unix and Linux System Administration","Noah Gift, Jeremy M. Jones","January 1, 2008",2)
     };
     public FakeStore() {
         for(BookTag bookTag : fake_tags){
@@ -19,22 +18,22 @@ public class FakeStore {
         }
     }
 
-    public boolean checkout_book(String bookname){
-        BookTag bookTag = find_book(bookname);
+    public boolean checkoutBook(String bookname){
+        BookTag bookTag = findBook(bookname);
         if(bookTag==null) return false;
-        return bookTag.checkout_book();
+        return bookTag.checkoutBook();
     }
 
-    public boolean return_book(String bookname){
-        BookTag bookTag = find_book(bookname);
+    public boolean returnBook(String bookname){
+        BookTag bookTag = findBook(bookname);
         if(bookTag==null) return false;
-        bookTag.return_book();
+        bookTag.returnBook();
         return true;
     }
 
-    public BookTag find_book(String bookname){
+    public BookTag findBook(String bookname){
         for(BookTag bookTag : book_tags){
-            if(bookTag.getName()==bookname){
+            if(bookTag.getName().equals(bookname)){
                 return bookTag;
             }
         }

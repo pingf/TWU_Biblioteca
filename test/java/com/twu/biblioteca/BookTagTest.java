@@ -15,7 +15,7 @@ public class BookTagTest {
 
         BookTag bookTag = new BookTag("Learning Python, 4th Edition", "Mark Lutz", "January 1, 2009",1);
 
-        String[] expected_array={"Learning Python, 4th Edition","Mark Lutz","Thu Jan 01 00:00:00 CST 2009"};
+        String[] expected_array={"Learning Python, 4th Edition","Mark Lutz","Thu Jan 01 00:00:00 CST 2009","1"};
 
         assertArrayEquals(expected_array, bookTag.getInfo());
     }

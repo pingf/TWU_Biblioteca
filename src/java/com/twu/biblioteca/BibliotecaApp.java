@@ -16,12 +16,12 @@ public class BibliotecaApp {
             int option=0;
             do {
                 option = sc.nextInt();
-                System.out.println(option);
-                System.out.println("=========");
                 Runnable[] actions = new Runnable[]{
-                        () -> listBooks()
+                        BibliotecaApp::listBooks,
+                        BibliotecaApp::checkoutBooks,
+                        BibliotecaApp::returnBook
                 };
-                for (int i = 0; i < 1; i++) map.put(i, actions[i]);
+                for (int i = 0; i < actions.length; i++) map.put(i, actions[i]);
             } while (!isOptionValid(map, option));
 
             if(isExitOption(option)) {
@@ -33,8 +33,8 @@ public class BibliotecaApp {
     }
 
     private static void printMenu() {
-        System.out.println();
         System.out.println("0 - List Books");
+        System.out.println("1 - Checkout Book");
         System.out.println("-1 - Quit");
     }
 
@@ -53,5 +53,26 @@ public class BibliotecaApp {
         for(String[] book_info:books_info){
             System.out.printf("%s %s %s\n",book_info[0],book_info[1],book_info[2]);
         }
+    }
+
+    private static void checkoutBooks() {
+        List<String[]> books_info = store.listBooks();
+        for(int i=0;i<books_info.size();i++){
+            System.out.printf("%d %s (%s)\n",i, books_info.get(i)[0], books_info.get(i)[3]);
+        }
+        System.out.println("-1 - Back");
+        Scanner sc = new Scanner(System.in);
+        int option = sc.nextInt();
+        if(option==-1) return;
+        store.checkoutBook(books_info.get(option)[0]);
+    }
+
+    private static void returnBook(){
+        System.out.println("Input Bookname:");
+
+        Scanner sc = new Scanner(System.in);
+        String name = sc.nextLine();
+        if(name.equals("back")) return;
+        store.returnBook(name);
     }
 }

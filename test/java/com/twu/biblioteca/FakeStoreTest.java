@@ -17,10 +17,10 @@ public class FakeStoreTest {
         String[][] expected_array = {
                 {"Learning Python, 4th Edition",
                         "Mark Lutz",
-                        "Thu Jan 01 00:00:00 CST 2009"},
+                        "Thu Jan 01 00:00:00 CST 2009","3"},
                 {"Python for Unix and Linux System Administration",
                         "Noah Gift, Jeremy M. Jones",
-                        "Tue Jan 01 00:00:00 CST 2008"}};
+                        "Tue Jan 01 00:00:00 CST 2008","2"}};
         assertArrayEquals(expected_array, fakeStore.listBooks().toArray());
     }
 
@@ -28,11 +28,14 @@ public class FakeStoreTest {
     public void whenCheckoutItShouldReturnSuccessfulIfBookExisted() {
         FakeStore fakeStore = new FakeStore();
 
-        fakeStore.checkout_book("Python for Unix and Linux System Administration");
+        fakeStore.checkoutBook("Python for Unix and Linux System Administration");
         String[][] expected_array = {
                 {"Learning Python, 4th Edition",
                         "Mark Lutz",
-                        "Thu Jan 01 00:00:00 CST 2009"}};
+                        "Thu Jan 01 00:00:00 CST 2009","3"},
+                {"Python for Unix and Linux System Administration",
+                        "Noah Gift, Jeremy M. Jones",
+                        "Tue Jan 01 00:00:00 CST 2008","1"}};
         assertArrayEquals(expected_array, fakeStore.listBooks().toArray());
     }
 
