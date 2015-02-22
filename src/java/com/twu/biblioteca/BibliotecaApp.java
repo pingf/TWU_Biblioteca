@@ -10,14 +10,27 @@ public class BibliotecaApp {
         System.out.println("0 - List Books");
 
         Scanner sc = new Scanner(System.in);
-        int option = sc.nextInt();
-
         HashMap<Integer, Runnable> map = new HashMap<Integer, Runnable>();
-        Runnable[] actions = new Runnable[]{
-                new Runnable() {public void run() {listBooks();}}
-        };
-        for(int i=0;i<1;i++) map.put(i,actions[i]);
+        int option=0;
+        do {
+            option = sc.nextInt();
+
+            Runnable[] actions = new Runnable[]{
+                    new Runnable() {
+                        public void run() {
+                            listBooks();
+                        }
+                    }
+            };
+            for (int i = 0; i < 1; i++) map.put(i, actions[i]);
+        } while(!isOptionValid(map, option));
         map.get(option).run();
+    }
+
+    private static boolean isOptionValid(HashMap<Integer, Runnable> map, int option) {
+        boolean valid = map.containsKey(option);
+        if(!valid) System.out.println("Select a valid option!");
+        return valid;
     }
 
     private static void listBooks() {

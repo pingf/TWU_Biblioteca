@@ -56,8 +56,6 @@ public class BibliotecaAppTest {
         ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
         System.setIn(in);
 
-        FakeStore fs = new FakeStore();
-
         BibliotecaApp.main(null);
 
         assertThat(outContent.toString(), containsString("List Books"));
