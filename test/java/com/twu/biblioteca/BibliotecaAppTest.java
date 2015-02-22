@@ -53,14 +53,16 @@ public class BibliotecaAppTest {
         PowerMockito.when(mock.listBooks()).thenReturn(Arrays.asList(expected_array));
         PowerMockito.whenNew(FakeStore.class).withAnyArguments().thenReturn(mock);
 
-        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream(("0\n-1").getBytes());
         System.setIn(in);
 
         BibliotecaApp.main(null);
 
         assertThat(outContent.toString(), containsString("List Books"));
+        assertThat(outContent.toString(), containsString("Quit"));
         assertThat(outContent.toString(), containsString(expected_array[0][0]));
         assertThat(outContent.toString(), containsString(expected_array[0][1]));
         assertThat(outContent.toString(), containsString(expected_array[0][2]));
+        assertThat(outContent.toString(), containsString("Goodbye"));
     }
 }
