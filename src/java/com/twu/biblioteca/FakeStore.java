@@ -2,7 +2,6 @@ package com.twu.biblioteca;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by fcmeng on 2/21/15.
@@ -21,7 +20,10 @@ public class FakeStore {
     }
 
     public List<String[]> listBooks() {
-        List<String[]> books_info = fake_books_list.stream().map(Book::getInfo).collect(Collectors.toList());
+        List<String[]> books_info = new ArrayList<String[]>();
+        for(Book book:fake_books_list){
+            books_info.add(book.getInfo());
+        }
         return books_info;
     }
 }

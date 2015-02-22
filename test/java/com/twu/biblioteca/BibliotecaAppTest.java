@@ -7,13 +7,24 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.mockito.Mockito.when;
 
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest({FakeStore.class, BibliotecaApp.class})
 public class BibliotecaAppTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
@@ -26,14 +37,32 @@ public class BibliotecaAppTest {
 
     @After
     public void cleanUpStreams() {
+        System.setIn(null);
         System.setOut(null);
         System.setErr(null);
     }
 
     @Test
-    public void itShouldShowMeAWelcomMessage(){
-        BibliotecaApp.main(null);
-        assertThat(outContent.toString(),containsString("Hello"));
-    }
+    public void whenType0ItShouldShowMeBookList() throws Exception {
 
+        String[][] expected_array = {
+                {"Hello World",
+                        "Jesse MENG",
+                        "Thu Jan 01 00:00:00 CST 2015"}};
+        FakeStore mock = PowerMockito.mock(FakeStore.class);
+        PowerMockito.when(mock.listBooks()).thenReturn(Arrays.asList(expected_array));
+        PowerMockito.whenNew(FakeStore.class).withAnyArguments().thenReturn(mock);
+
+        ByteArrayInputStream in = new ByteArrayInputStream("0".getBytes());
+        System.setIn(in);
+
+        FakeStore fs = new FakeStore();
+
+        BibliotecaApp.main(null);
+
+        assertThat(outContent.toString(), containsString("List Books"));
+        assertThat(outContent.toString(), containsString(expected_array[0][0]));
+        assertThat(outContent.toString(), containsString(expected_array[0][1]));
+        assertThat(outContent.toString(), containsString(expected_array[0][2]));
+    }
 }
