@@ -16,11 +16,7 @@ public class BibliotecaApp {
             option = sc.nextInt();
 
             Runnable[] actions = new Runnable[]{
-                    new Runnable() {
-                        public void run() {
-                            listBooks();
-                        }
-                    }
+                    () -> listBooks()
             };
             for (int i = 0; i < 1; i++) map.put(i, actions[i]);
         } while(!isOptionValid(map, option));
