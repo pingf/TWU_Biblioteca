@@ -35,6 +35,7 @@ public class BibliotecaApp {
     private static void printMenu() {
         System.out.println("0 - List Books");
         System.out.println("1 - Checkout Book");
+        System.out.println("2 - Return Book");
         System.out.println("-1 - Quit");
     }
 

@@ -4,16 +4,22 @@ package com.twu.biblioteca;
  * Created by fcmeng on 2/21/15.
  */
 
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.PrintStream;
 
 import static org.junit.Assert.*;
 
 public class FakeStoreTest {
 
+    private FakeStore fakeStore = null;
+    @Before
+    public void setUpStreams() {
+        fakeStore = new FakeStore();
+    }
     @Test
     public void itShouldListAllBooksToMe() {
-        FakeStore fakeStore = new FakeStore();
-
         String[][] expected_array = {
                 {"Learning Python, 4th Edition",
                         "Mark Lutz",
@@ -26,8 +32,6 @@ public class FakeStoreTest {
 
     @Test
     public void whenCheckoutItShouldReturnSuccessfulIfBookExisted() {
-        FakeStore fakeStore = new FakeStore();
-
         fakeStore.checkoutBook("Python for Unix and Linux System Administration");
         String[][] expected_array = {
                 {"Learning Python, 4th Edition",
@@ -39,5 +43,13 @@ public class FakeStoreTest {
         assertArrayEquals(expected_array, fakeStore.listBooks().toArray());
     }
 
+    @Test
+    public void itShouldBeAbleToTellTheOneWhoCheckOutBooks() {
+        fakeStore.checkoutBook("Python for Unix and Linux System Administration");
 
+        String[][] expected_array = {
+                {"123-4567", "Python for Unix and Linux System Administration"}
+        };
+        assertArrayEquals(expected_array, fakeStore.checkoutStatus().toArray());
+    }
 }
