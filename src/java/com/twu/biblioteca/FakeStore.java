@@ -9,21 +9,26 @@ import java.util.List;
 public class FakeStore {
     private List<BookTag> book_tags = new ArrayList<BookTag>();
     private List<CheckoutTag> checkout_tags = new ArrayList<CheckoutTag>();
-    private String current_user="123-4567";
+    private Account current_user=new Account("Ingress","bluegreen","hello@world.com","11122223333");
     BookTag[] fake_tags ={
             new BookTag("Learning Python, 4th Edition","Mark Lutz","January 1, 2009",3),
             new BookTag("Python for Unix and Linux System Administration","Noah Gift, Jeremy M. Jones","January 1, 2008",2)
     };
+
     public FakeStore() {
         for(BookTag bookTag : fake_tags){
             book_tags.add(bookTag);
         }
     }
 
+    public String[] current_user_info(){
+        return this.current_user.getInfo();
+    }
+
     public boolean checkoutBook(String bookname){
         BookTag bookTag = findBook(bookname);
         if(bookTag==null) return false;
-        checkout_tags.add(new CheckoutTag(current_user,bookTag.getName()));
+        checkout_tags.add(new CheckoutTag(current_user.getId(),bookTag.getName()));
         return bookTag.checkoutBook();
     }
 

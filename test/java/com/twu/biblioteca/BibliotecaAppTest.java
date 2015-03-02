@@ -39,27 +39,43 @@ public class BibliotecaAppTest {
         System.setErr(null);
     }
 
-    @Test
-    public void whenType0ItShouldShowMeBookList() throws Exception {
 
-        String[][] expected_array = {
+
+    @Test
+    public void whenTypeSthItShouldReturnWhatWeWant() throws Exception {
+
+        String[][] expected_array_0 = {
                 {"Hello World",
                         "Jesse MENG",
                         "Thu Jan 01 00:00:00 CST 2015"}};
+        Account account = new Account("Ingress","bluegreen","hello@world.com","11122223333");
+
         FakeStore mock = PowerMockito.mock(FakeStore.class);
-        PowerMockito.when(mock.listBooks()).thenReturn(Arrays.asList(expected_array));
+        PowerMockito.when(mock.listBooks()).thenReturn(Arrays.asList(expected_array_0));
+        PowerMockito.when(mock.current_user_info()).thenReturn(account.getInfo());
+
         PowerMockito.whenNew(FakeStore.class).withAnyArguments().thenReturn(mock);
 
-        ByteArrayInputStream in = new ByteArrayInputStream(("0\n-1").getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream(("0\n3\n-1").getBytes());
         System.setIn(in);
 
         BibliotecaApp.main(null);
 
         assertThat(outContent.toString(), containsString("List Books"));
         assertThat(outContent.toString(), containsString("Quit"));
-        assertThat(outContent.toString(), containsString(expected_array[0][0]));
-        assertThat(outContent.toString(), containsString(expected_array[0][1]));
-        assertThat(outContent.toString(), containsString(expected_array[0][2]));
+        assertThat(outContent.toString(), containsString(expected_array_0[0][0]));
+        assertThat(outContent.toString(), containsString(expected_array_0[0][1]));
+        assertThat(outContent.toString(), containsString(expected_array_0[0][2]));
+        assertThat(outContent.toString(), containsString("Goodbye"));
+
+        assertThat(outContent.toString(), containsString("User Info"));
+        assertThat(outContent.toString(), containsString("Quit"));
+        assertThat(outContent.toString(), containsString(account.getInfo()[0]));
+        assertThat(outContent.toString(), containsString(account.getInfo()[1]));
+        assertThat(outContent.toString(), containsString(account.getInfo()[2]));
+        assertThat(outContent.toString(), containsString(account.getInfo()[3]));
         assertThat(outContent.toString(), containsString("Goodbye"));
     }
+
+
 }
