@@ -21,6 +21,9 @@ public class BibliotecaApp {
                         BibliotecaApp::listBooks,
                         BibliotecaApp::checkoutBooks,
                         BibliotecaApp::returnBook,
+                        BibliotecaApp::listMovies,
+                        BibliotecaApp::checkoutMovies,
+                        BibliotecaApp::returnMovie,
                         BibliotecaApp::userInfo
                 };
                 for (int i = 0; i < actions.length; i++) map.put(i, actions[i]);
@@ -39,7 +42,10 @@ public class BibliotecaApp {
         System.out.println("0 - List Books");
         System.out.println("1 - Checkout Book");
         System.out.println("2 - Return Book");
-        System.out.println("3 - User Info");
+        System.out.println("3 - List Movies");
+        System.out.println("4 - Checkout Movies");
+        System.out.println("5 - Return Movie");
+        System.out.println("6 - User Info");
         System.out.println("-1 - Quit");
     }
 
@@ -79,6 +85,34 @@ public class BibliotecaApp {
         String name = sc.nextLine();
         if (name.equals("back")) return;
         store.returnBook(name);
+    }
+
+    private static void listMovies() {
+        List<String[]> movies_info = store.listMovies();
+        for (String[] movie_info : movies_info) {
+            System.out.printf("%s %s %s %s\n", movie_info[0], movie_info[1], movie_info[2], movie_info[3]);
+        }
+    }
+
+    private static void checkoutMovies() {
+        List<String[]> movies_info = store.listMovies();
+        for (int i = 0; i < movies_info.size(); i++) {
+            System.out.printf("%d %s (%s)\n", i, movies_info.get(i)[0], movies_info.get(i)[4]);
+        }
+        System.out.println("-1 - Back");
+        Scanner sc = new Scanner(System.in);
+        int option = sc.nextInt();
+        if (option == -1) return;
+        store.checkoutMovie(movies_info.get(option)[0]);
+    }
+
+    private static void returnMovie() {
+        System.out.println("Input Moviename:");
+
+        Scanner sc = new Scanner(System.in);
+        String name = sc.nextLine();
+        if (name.equals("back")) return;
+        store.returnMovie(name);
     }
 
     private static void userInfo() {

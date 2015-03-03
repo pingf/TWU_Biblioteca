@@ -56,7 +56,7 @@ public class BibliotecaAppTest {
 
         PowerMockito.whenNew(FakeStore.class).withAnyArguments().thenReturn(mock);
 
-        ByteArrayInputStream in = new ByteArrayInputStream(("0\n3\n-1").getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream(("0\n6\n-1").getBytes());
         System.setIn(in);
 
         BibliotecaApp.main(null);
