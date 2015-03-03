@@ -35,7 +35,7 @@ public class BookTag {
             return true;
         }
         return false;
-    }
+}
 
     public void returnBook(){
         this.count++;
